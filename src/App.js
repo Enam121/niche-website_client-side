@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './context/AuthProvider';
 import Contact from './Pages/Contact Page/Contact/Contact';
+import Dashboard from './Pages/Dashboard Page/Dashboard/Dashboard';
 import Explore from './Pages/Explore page/Explore/Explore';
 import Home from './Pages/Home Page/Home/Home';
 import Login from './Pages/Login Page/Login/Login';
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignUp />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
             </Route>
 
           </Switch>

@@ -16,7 +16,6 @@ const Navigation = () => {
 
   const toLoginPage = () => history.push('/login');
 
-  console.log(user.displayName)
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '60px' }}>
       <AppBar position="static" sx={{
@@ -40,25 +39,28 @@ const Navigation = () => {
                 EX Watch
               </Typography>
 
-              <Link to="/home" style={{ textDecoration: 'none' }}>
-                <Button sx={{ color: "white" }} >Home</Button>
+              <Link to="/home" style={{ textDecoration: 'none', color: "white" }}>
+                <Button color="inherit" >Home</Button>
               </Link>
 
-              <Link to="/explore" style={{ textDecoration: 'none' }}>
-                <Button sx={{ color: "white" }} >Explore</Button>
+              <Link to="/explore" style={{ textDecoration: 'none', color: "white" }}>
+                <Button color="inherit" >Explore</Button>
               </Link>
 
-              <Link to="/contact" style={{ textDecoration: 'none' }}>
-                <Button sx={{ color: "white" }} >Contact</Button>
+              <Link to="/contact" style={{ textDecoration: 'none', color: "white" }}>
+                <Button color="inherit" >Contact</Button>
               </Link>
+              {user.email && <Link to="/dashboard" style={{ textDecoration: 'none', color: "white" }}>
+                <Button color="inherit" >Dahsboard</Button>
+              </Link>}
 
             </Box>
 
           </Box>
           <Box sx={{ marginLeft: 'auto' }}>
             {
-              user.email ? <Box>
-                <span style={{ color: 'white' }}>{user.displayName}</span>
+              user.email ? <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ color: 'white', marginRight: "35px", fontWeight: '600' }}>{user.displayName}</span>
                 <Button onClick={signingOut} color="inherit">Logout</Button>
               </Box>
                 :

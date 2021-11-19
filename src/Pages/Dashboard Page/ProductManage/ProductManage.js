@@ -8,7 +8,7 @@ const ProductManage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/products')
+    fetch('https://shrouded-mountain-50267.herokuapp.com/products')
       .then(res => res.json())
       .then(data => setProducts(data));
 
@@ -17,7 +17,7 @@ const ProductManage = () => {
   const deleteProduct = (name) => {
     const proceed = window.confirm('Are you sure you want to delete this item?');
     if (proceed) {
-      fetch(`http://localhost:5000/products/delete/${name}`, { method: 'DELETE' })
+      fetch(`https://shrouded-mountain-50267.herokuapp.com/products/delete/${name}`, { method: 'DELETE' })
         .then(res => res.json())
         .then(result => {
           if (result.deletedCount > 0) {

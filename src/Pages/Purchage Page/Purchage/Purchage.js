@@ -18,7 +18,7 @@ const Purchage = () => {
     const newData = { userInfo: data, orderInfo: product }
 
     console.log(newData)
-    fetch('http://localhost:5000/orders', {
+    fetch('https://shrouded-mountain-50267.herokuapp.com/orders', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newData)
@@ -35,7 +35,7 @@ const Purchage = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/purchage/${name}`)
+    fetch(`https://shrouded-mountain-50267.herokuapp.com/purchage/${name}`)
       .then(res => res.json())
       .then(data => setProduct(data))
   }, [name]);

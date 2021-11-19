@@ -81,7 +81,7 @@ const useFirebase = () => {
 
   const saveUser = (email, displayName) => {
     const user = { email, displayName };
-    fetch('http://localhost:5000/users', {
+    fetch('https://shrouded-mountain-50267.herokuapp.com/users', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(user)
@@ -91,7 +91,7 @@ const useFirebase = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/admin/${user.email}`)
+    fetch(`https://shrouded-mountain-50267.herokuapp.com/admin/${user.email}`)
       .then(res => res.json())
       .then(data => setAdmin(data.admin))
 

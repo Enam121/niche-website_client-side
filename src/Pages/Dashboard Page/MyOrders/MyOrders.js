@@ -14,7 +14,7 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    user.email !== undefined && fetch(`http://localhost:5000/orders?email=${user?.email}`)
+    user.email !== undefined && fetch(`https://shrouded-mountain-50267.herokuapp.com/orders?email=${user?.email}`)
       .then(res => res.json())
       .then(data => setOrders(data))
 
@@ -24,7 +24,7 @@ const MyOrders = () => {
   const deleteProduct = (name) => {
     const proceed = window.confirm('Are you sure you want to delete this item?');
     if (proceed) {
-      fetch(`http://localhost:5000/orders/delete/${name}`, { method: 'DELETE' })
+      fetch(`https://shrouded-mountain-50267.herokuapp.com/orders/delete/${name}`, { method: 'DELETE' })
         .then(res => res.json())
         .then(result => {
           if (result.deletedCount > 0) {

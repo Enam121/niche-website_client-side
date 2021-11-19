@@ -1,5 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import initializeAuthentication from '../Firebase/firebase.init';
 
 initializeAuthentication();
@@ -52,11 +53,12 @@ const useFirebase = () => {
 
   }
 
-  const signingOut = () => {
+  const signingOut = (history) => {
     setLoading(true);
     signOut(auth)
       .then(() => {
         setUser({});
+        history.push('/login')
       })
       .catch((error) => {
         setAuthError(error.message);

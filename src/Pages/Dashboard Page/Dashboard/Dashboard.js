@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import { Switch, Route, Link, useRouteMatch, useHistory } from "react-router-dom";
 import MyOrders from '../MyOrders/MyOrders';
 import Payment from '../Payment/Payment';
 import Review from '../Review/Review';
@@ -32,21 +32,17 @@ const Dashboard = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { admin, user, signingOut } = useAuth()
+  let { path, url } = useRouteMatch();
+  const { admin, signingOut } = useAuth()
+  const history = useHistory()
 
+  const handleLogout = () => {
+    signingOut(history);
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  let { path, url } = useRouteMatch();
-
-  const linkStyle = {
-    textDecoration: 'none',
-    display: 'flex',
-    alignItems: 'center'
-  };
-
 
   const drawer = (
     <div>
@@ -58,87 +54,64 @@ const Dashboard = (props) => {
       {/* home & explore page link */}
       <List>
 
-        <ListItem button >
-          <Link to="/home" style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Home'} />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to="/home">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItemButton>
 
-        <ListItem button >
-          <Link to="/explore" style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Explore'} />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to="/explore">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Explore" />
+        </ListItemButton>
 
       </List>
       <Divider />
       {/* users navigation */}
-      <List>
+      {!admin && <List>
 
-        {/* <ListItem button >
-          <Link to="/home" style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Home'} />
-          </Link>
-        </ListItem> */}
+        <ListItemButton component={Link} to={`${url}/my-orders`} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="My Orders" />
+        </ListItemButton>
 
-        <ListItem button >
-          <Link to={`${url}/my-orders`} style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'My Orders'} />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to={`${url}/payment`} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Payment" />
+        </ListItemButton>
 
-        <ListItem button >
-          <Link to={`${url}/payment`} style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Payment'} />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to={`${url}/review`} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Review" />
+        </ListItemButton>
 
-        <ListItem button >
-          <Link to={`${url}/review`} style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Review'} />
-          </Link>
-        </ListItem>
-
-      </List>
+      </List>}
       <Divider />
       {/* admins navigation */}
       {admin && <List>
 
-        <ListItem button >
-          <Link to={`${url}/add-product`} style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Add Product" />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to={`${url}/add-product`} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Add Product" />
+        </ListItemButton>
 
-        <ListItem button >
-          <Link to={`${url}/product-manage`} style={linkStyle}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Product Manage" />
-          </Link>
-        </ListItem>
+        <ListItemButton component={Link} to={`${url}/product-manage`} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Product Manage" />
+        </ListItemButton>
 
         <ListItemButton component={Link} to={`${url}/order-manage`}>
           <ListItemIcon>
@@ -155,7 +128,8 @@ const Dashboard = (props) => {
         </ListItemButton>
 
       </List>}
-      <Button variant="outlined" onClick={signingOut}>Logout</Button>
+      <Divider />
+      <Button variant="outlined" onClick={handleLogout} sx={{ my: 1, mx: "auto", display: 'flex', width: '70%' }} >Logout</Button>
     </div>
   );
 

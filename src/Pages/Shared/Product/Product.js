@@ -7,7 +7,6 @@ const Product = ({ product }) => {
   const { img, name, price } = product;
 
   const history = useHistory();
-  // const { id } = useParams();
 
   const handlePurchage = (name) => {
     const url = `/purchage/${name}`;

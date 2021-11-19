@@ -24,7 +24,7 @@ const MyOrders = () => {
   const deleteProduct = (name) => {
     const proceed = window.confirm('Are you sure you want to delete this item?');
     if (proceed) {
-      fetch(`http://localhost:5000/delete/${name}`, { method: 'DELETE' })
+      fetch(`http://localhost:5000/orders/delete/${name}`, { method: 'DELETE' })
         .then(res => res.json())
         .then(result => {
           if (result.deletedCount > 0) {

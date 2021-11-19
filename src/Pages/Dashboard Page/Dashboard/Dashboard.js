@@ -11,10 +11,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import MyOrders from '../MyOrders/MyOrders';
 import Payment from '../Payment/Payment';
@@ -23,6 +23,7 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import OrderManage from '../OrderManage/OrderManage';
 import ProductManage from '../ProductManage/ProductManage';
 import AddProduct from '../AddProduct/AddProduct';
+import useAuth from '../../../hooks/useAuth';
 
 
 const drawerWidth = 240;
@@ -31,24 +32,30 @@ const Dashboard = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const { admin, user, signingOut } = useAuth()
+
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   let { path, url } = useRouteMatch();
+
   const linkStyle = {
     textDecoration: 'none',
     display: 'flex',
     alignItems: 'center'
   };
 
+
   const drawer = (
     <div>
       <Typography variant="h6" sx={{ my: 2, mx: "auto", display: 'flex', width: '70%' }}>
         Niche Product
       </Typography>
-      {/* <Toolbar /> */}
+
       <Divider />
+      {/* home & explore page link */}
       <List>
 
         <ListItem button >
@@ -71,6 +78,7 @@ const Dashboard = (props) => {
 
       </List>
       <Divider />
+      {/* users navigation */}
       <List>
 
         {/* <ListItem button >
@@ -111,7 +119,8 @@ const Dashboard = (props) => {
 
       </List>
       <Divider />
-      <List>
+      {/* admins navigation */}
+      {admin && <List>
 
         <ListItem button >
           <Link to={`${url}/add-product`} style={linkStyle}>
@@ -145,7 +154,8 @@ const Dashboard = (props) => {
           <ListItemText primary="Make Admin" />
         </ListItemButton>
 
-      </List>
+      </List>}
+      <Button variant="outlined" onClick={signingOut}>Logout</Button>
     </div>
   );
 

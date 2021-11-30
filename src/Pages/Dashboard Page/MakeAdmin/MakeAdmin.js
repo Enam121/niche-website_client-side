@@ -5,12 +5,10 @@ import { Box, Typography, TextField, Button } from '@mui/material';
 const MakeAdmin = () => {
   const [email, setEmail] = useState('');
 
-  const getEmail = e => {
-    setEmail(e.target.value)
-  }
-  console.log(email)
+  const getEmail = e => setEmail(e.target.value);
+
   const handleMakeAdmin = () => {
-    const user = { email }
+    const user = { email };
     fetch('https://shrouded-mountain-50267.herokuapp.com/users/admin', {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
@@ -31,17 +29,17 @@ const MakeAdmin = () => {
         Make an admin
       </Typography>
 
-      <Box sx={{ display: 'flex', mt: 1 }}>
+      <form onSubmit={handleMakeAdmin} sx={{ display: 'flex', mt: 1 }}>
         <TextField
           label="Email"
           type="email"
           variant="filled"
           onBlur={getEmail}
         />
-        <Button onClick={handleMakeAdmin} variant="outlined">
+        <Button variant="outlined">
           Make Admin
         </Button>
-      </Box>
+      </form>
     </Box>
   );
 };
